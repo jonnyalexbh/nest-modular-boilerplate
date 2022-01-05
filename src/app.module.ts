@@ -1,27 +1,10 @@
 import { Module } from '@nestjs/common';
-import {
-  utilities as nestWinstonModuleUtilities,
-  WinstonModule,
-} from 'nest-winston';
-import * as winston from 'winston';
 
 import { ClientsModule } from './clients/controllers/clients.module';
 import { ProductsModule } from './products/controllers/products.module';
+import { LoggerModule } from './commons/modules/logger.module';
 @Module({
-  imports: [
-    WinstonModule.forRoot({
-      transports: [
-        new winston.transports.Console({
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike(),
-          ),
-        }),
-      ],
-    }),
-    ClientsModule,
-    ProductsModule,
-  ],
+  imports: [LoggerModule, ClientsModule, ProductsModule],
   controllers: [],
   providers: [],
 })
