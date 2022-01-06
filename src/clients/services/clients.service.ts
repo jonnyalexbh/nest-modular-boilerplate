@@ -22,8 +22,8 @@ export class ClientsService {
   ];
 
   findAll() {
-    const apiKey = this.configService.get('API_KEY');
-    const dbName = this.configService.get('DATABASE_NAME');
+    const apiKey = this.configService.get('apiKey2');
+    const dbName = this.configService.get('DATABASE_NAME2');
     console.log(apiKey, dbName);
     return this.clients;
   }
