@@ -8,10 +8,12 @@ import {
   Body,
 } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { ClientsService } from '../services/clients.service';
 
 @Controller('clients')
 export class ClientsController {
   constructor(
+    private clientsService: ClientsService,
     @Inject(WINSTON_MODULE_NEST_PROVIDER)
     private readonly logger: LoggerService,
   ) {}
@@ -19,7 +21,8 @@ export class ClientsController {
   @Get()
   get() {
     this.logger.log('we are getting all clients', ClientsController.name);
-    return { message: 'Get all clients' };
+    return this.clientsService.findAll();
+    // return { message: 'Get all clients' };
   }
 
   @Get(':id')
