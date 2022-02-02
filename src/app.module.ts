@@ -7,12 +7,13 @@ import { ConfigService } from '@nestjs/config';
 import { ClientsModule } from './clients/clients.module';
 import { ProductsModule } from './products/controllers/products.module';
 import { LoggerModule } from './commons/modules/logger.module';
-import { ClientsService } from './clients/services/clients.service';
+
 @Module({
   imports: [
     MongooseModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get('mongo.uri'),
+        dbName: configService.get('mongo.dbName'),
       }),
       inject: [ConfigService],
     }),
@@ -26,6 +27,6 @@ import { ClientsService } from './clients/services/clients.service';
     ProductsModule,
   ],
   controllers: [],
-  providers: [ClientsService],
+  providers: [],
 })
 export class AppModule {}

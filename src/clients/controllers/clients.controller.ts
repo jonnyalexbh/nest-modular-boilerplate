@@ -26,8 +26,9 @@ export class ClientsController {
   }
 
   @Get(':id')
-  getById(@Param('id') userId: number) {
-    return { message: `Get client with id ${userId}` };
+  getById(@Param('id') userId: string) {
+    return this.clientsService.findOne(userId);
+    // return { message: `Get client with id ${userId}` };
   }
 
   @Post()

@@ -58,6 +58,12 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+### Using .nvmrc
+
+```sh
+$ node -v > .nvmrc
+```
+
 ## Docker Setup
 
 ```bash

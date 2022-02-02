@@ -1,30 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { Client } from '../entities/clients.entity';
 
 @Injectable()
 export class ClientsService {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    @InjectModel(Client.name) private clientModel: Model<Client>,
+  ) {}
 
-  private clients: Client[] = [
-    {
-      id: 101,
-      name: 'Tankis Alexis',
-      age: 30,
-      email: 'tankis@gmail.com',
-    },
-    {
-      id: 102,
-      name: 'Jerson Lopez',
-      age: 26,
-      email: 'jersi@gmail.com',
-    },
-  ];
-
-  findAll() {
+  async findAll() {
     const apiKey = this.configService.get('apiKey2');
     const dbName = this.configService.get('DATABASE_NAME2');
     console.log(apiKey, dbName);
-    return this.clients;
+    return this.clientModel.find().exec();
+  }
+
+  async findOne(id: string) {
+    const client = await this.clientModel.findById(id).exec();
+    if (!client) {
+      throw new NotFoundException(`Client #${id} not found`);
+    }
+    return client;
   }
 }
