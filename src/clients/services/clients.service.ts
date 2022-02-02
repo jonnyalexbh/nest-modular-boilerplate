@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateClientDto } from '../dtos/client.dto';
 import { Client } from '../entities/clients.entity';
 
 @Injectable()
@@ -17,5 +18,10 @@ export class ClientsService {
       throw new NotFoundException(`Client #${id} not found`);
     }
     return client;
+  }
+
+  create(client: CreateClientDto) {
+    const newClient = new this.clientModel(client);
+    return newClient.save();
   }
 }

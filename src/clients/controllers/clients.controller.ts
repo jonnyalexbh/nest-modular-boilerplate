@@ -8,6 +8,7 @@ import {
   Body,
 } from '@nestjs/common';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import { CreateClientDto } from '../dtos/client.dto';
 import { ClientsService } from '../services/clients.service';
 
 @Controller('clients')
@@ -32,8 +33,9 @@ export class ClientsController {
   }
 
   @Post()
-  create(@Body() payload: any) {
+  create(@Body() payload: CreateClientDto) {
     this.logger.log({ payload }, ClientsController.name);
-    return { payload };
+    return this.clientsService.create(payload);
+    // return { payload };
   }
 }
