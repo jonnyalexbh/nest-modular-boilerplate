@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 
 import { ClientsModule } from './clients/clients.module';
-import { ProductsModule } from './products/controllers/products.module';
 import { LoggerModule } from './commons/modules/logger.module';
+import { HealthCheckModule } from './health_check/healthCheck.module';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { LoggerModule } from './commons/modules/logger.module';
     }),
     LoggerModule,
     ClientsModule,
-    ProductsModule,
+    HealthCheckModule,
   ],
   controllers: [],
   providers: [],
