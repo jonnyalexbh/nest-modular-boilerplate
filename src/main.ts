@@ -3,11 +3,12 @@ import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import config from './config';
 
 import { AppModule } from './app.module';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(config().api.port);
   Logger.log(`✅ Application is running on port: ${config().api.port}`);
 }
