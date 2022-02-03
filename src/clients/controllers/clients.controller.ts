@@ -7,10 +7,12 @@ import {
   LoggerService,
   Body,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { CreateClientDto } from '../dtos/client.dto';
 import { ClientsService } from '../services/clients.service';
 
+@ApiTags('clients')
 @Controller('clients')
 export class ClientsController {
   constructor(

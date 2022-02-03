@@ -8,8 +8,10 @@ import {
   ParseIntPipe,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { SamplesService } from '../services/samples.service';
 
+@ApiTags('samples')
 @Controller('samples')
 export class SamplesController {
   constructor(private samplesService: SamplesService) {}
