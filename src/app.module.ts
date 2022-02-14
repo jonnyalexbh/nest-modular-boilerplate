@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { APP_FILTER } from '@nestjs/core';
 import config from './config';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,6 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { ClientsModule } from './clients/clients.module';
 import { LoggerModule } from './commons/modules/logger.module';
 import { HealthCheckModule } from './health_check/healthCheck.module';
+import { AllExceptionsFilter } from './commons/filter/allException.filter';
 
 @Module({
   imports: [
@@ -26,7 +28,11 @@ import { HealthCheckModule } from './health_check/healthCheck.module';
     ClientsModule,
     HealthCheckModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
 })
 export class AppModule {}

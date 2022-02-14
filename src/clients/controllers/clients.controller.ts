@@ -6,6 +6,7 @@ import {
   Inject,
   LoggerService,
   Body,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
@@ -23,6 +24,7 @@ export class ClientsController {
 
   @Get()
   get() {
+    // throw new NotFoundException('Entitlement not found.');
     this.logger.log('we are getting all clients', ClientsController.name);
     return this.clientsService.findAll();
     // return { message: 'Get all clients' };
